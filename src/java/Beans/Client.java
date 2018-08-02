@@ -39,7 +39,7 @@ public class Client {
 //        this.cliNom = cliNom;
 //        this.cliPrenom = cliPrenom;
 //    }
-     public Client(String login, String pwd) {
+    public Client(String login, String pwd) {
         this.cliLogin = login;
         this.cliPwd = pwd;
     }
@@ -69,9 +69,9 @@ public class Client {
     }
 
     public void setCliNom(String cliNom) throws LibExceptions {
-      mesOutils.checkNom(cliNom);
+        mesOutils.checkNom(cliNom);
         this.cliNom = cliNom;
-        
+
     }
 
     public String getCliPrenom() {
@@ -80,8 +80,8 @@ public class Client {
 
     public void setCliPrenom(String cliPrenom) throws LibExceptions {
         mesOutils.checkPrenom(cliPrenom);
-      this.cliPrenom = cliPrenom;
-        
+        this.cliPrenom = cliPrenom;
+
     }
 
     public String getCliGenre() {
@@ -102,10 +102,12 @@ public class Client {
 
         this.cliNaissance = cliNaissance;
     }
- public void setCliNaissance(String cliNaissance) throws LibExceptions {
+
+    public void setCliNaissance(String cliNaissance) throws LibExceptions {
 
         this.cliNaissance = mesOutils.checkDate(cliNaissance);
     }
+
     public String getCliMail() {
         return cliMail;
     }
@@ -132,12 +134,13 @@ public class Client {
         mesOutils.checkPwd(cliPwd);
         this.cliPwd = cliPwd;
     }
-    
-    public boolean chekloginPwd(String login,String pwd){
-      return mesOutils.checkLogin2(login, pwd);
-  }
-    public String getCliObs(){
-        
+
+    public boolean chekloginPwd(String login, String pwd) {
+        return mesOutils.checkLogin2(login, pwd);
+    }
+
+    public String getCliObs() {
+
         return cliObs;
     }
 
@@ -161,7 +164,6 @@ public class Client {
     public void setAdrLivraison(Vector<Adresse> adrLivraison) {
         this.adrLivraison = adrLivraison;
     }
-    
 
     public Vector getVector() {
         Vector v = new Vector();
@@ -177,11 +179,12 @@ public class Client {
         v.add(cliObs);
         return v;
     }
-    public void UpdateClient(){
-           try {
+
+    public void UpdateClient() {
+        try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         } catch (ClassNotFoundException ex) {
-            System.err.println("Oops:ClassNotFound:" + ex.getMessage());
+            System.out.println("Oops:ClassNotFound:" + ex.getMessage());
             return;
         }
 
@@ -192,45 +195,47 @@ public class Client {
                     + "databaseName=Librairnet;username=sa;password=sa";
             connexion = DriverManager.getConnection(url);
         } catch (SQLException ex) {
-            System.err.println("Oops:connexion:" + ex.getMessage());
+            System.out.println("Oops:connexion:" + ex.getMessage());
         }
-        
+
         try {
-            String query= "update Client set cliNom = ? ,cliPrenom = ? ,cliGenre = ? ,cliNaissance = ?"
+            String query = "update Client set cliNom = ? ,cliPrenom = ? ,cliGenre = ? ,cliNaissance = ?"
                     + ", cliMail = ? , cliLogin = ? , cliPwd = ? , cliObs=? where cliId = ?";
-            PreparedStatement pstmt= connexion.prepareStatement( query);
-            
-            pstmt.setString(1,cliNom);
-            pstmt.setString(2,cliPrenom);
-            pstmt.setString(3,cliGenre);
-            pstmt.setDate(4,cliNaissance);
-            pstmt.setString(5,cliMail);
-            pstmt.setString(6,cliLogin);
-            pstmt.setString(7,cliPwd);
-            pstmt.setString(8,cliObs);
-            pstmt.setInt(9,cliId);
-            
-            int result= pstmt.executeUpdate();
-            
-            System.out.println("Result:"+ result);
-            
+            PreparedStatement pstmt = connexion.prepareStatement(query);
+
+            pstmt.setString(1, cliNom);
+            pstmt.setString(2, cliPrenom);
+            pstmt.setString(3, cliGenre);
+            pstmt.setDate(4, cliNaissance);
+            pstmt.setString(5, cliMail);
+            pstmt.setString(6, cliLogin);
+            pstmt.setString(7, cliPwd);
+            pstmt.setString(8, cliObs);
+            pstmt.setInt(9, cliId);
+
+            int result = pstmt.executeUpdate();
+
+            System.out.println("Result:" + result);
+
             pstmt.close();
         } catch (SQLException ex) {
-            System.err.println("Oops:SQL:"+ ex.getErrorCode()+"/"+ex.getMessage());
+            System.out.println("Oops:SQL:" + ex.getErrorCode() + "/" + ex.getMessage());
         }
         try {
+            System.out.println("Client close 225");
             connexion.close();
         } catch (SQLException ex) {
-            System.err.println("Oops:close:"+ ex.getMessage());
+            System.out.println("Oops:close:" + ex.getMessage());
         }
 
         System.out.println("Done!");
     }
-      public void InsertClient(){
-           try {
+
+    public void InsertClient() {
+        try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         } catch (ClassNotFoundException ex) {
-            System.err.println("Oops:ClassNotFound:" + ex.getMessage());
+            System.out.println("Oops:ClassNotFound:" + ex.getMessage());
             return;
         }
 
@@ -241,44 +246,46 @@ public class Client {
                     + "databaseName=Librairnet;username=sa;password=sa";
             connexion = DriverManager.getConnection(url);
         } catch (SQLException ex) {
-            System.err.println("Oops:connexion:" + ex.getMessage());
+            System.out.println("Oops:connexion:" + ex.getMessage());
         }
-        
+
         try {
-            String query= "insert into Client values (?,?,?,?,?,?,?,?);";
-            PreparedStatement pstmt= connexion.prepareStatement( query);
-            
-            pstmt.setString(1,cliNom);
-            pstmt.setString(2,cliPrenom);
-            pstmt.setString(3,cliGenre);
-            pstmt.setDate(4,cliNaissance);
-            pstmt.setString(5,cliMail);
-            pstmt.setString(6,cliLogin);
-            pstmt.setString(7,cliPwd);
-            pstmt.setString(8,cliObs);
-            
-            int result= pstmt.executeUpdate();
-            
-            System.out.println("Result:"+ result);
-            
+            String query = "insert into Client values (?,?,?,?,?,?,?,?);";
+            PreparedStatement pstmt = connexion.prepareStatement(query);
+
+            pstmt.setString(1, cliNom);
+            pstmt.setString(2, cliPrenom);
+            pstmt.setString(3, cliGenre);
+            pstmt.setDate(4, cliNaissance);
+            pstmt.setString(5, cliMail);
+            pstmt.setString(6, cliLogin);
+            pstmt.setString(7, cliPwd);
+            pstmt.setString(8, cliObs);
+
+            int result = pstmt.executeUpdate();
+
+            System.out.println("Result:" + result);
+
             pstmt.close();
         } catch (SQLException ex) {
-            System.err.println("Oops:SQL:"+ ex.getErrorCode()+"/"+ex.getMessage());
+            System.out.println("Oops:SQL:" + ex.getErrorCode() + "/" + ex.getMessage());
         }
         try {
+            System.out.println("Client close 274");
             connexion.close();
         } catch (SQLException ex) {
-            System.err.println("Oops:close:"+ ex.getMessage());
+            System.out.println("Oops:close:" + ex.getMessage());
         }
 
         System.out.println("Done!");
     }
-    public int ExistClient(){
+
+    public int ExistClient() {
         int res = -1;
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         } catch (ClassNotFoundException ex) {
-            System.err.println("Oops:ClassNotFound:" + ex.getMessage());
+            System.out.println("Oops:ClassNotFound:" + ex.getMessage());
             return res;
         }
 
@@ -289,132 +296,222 @@ public class Client {
                     + "databaseName=Librairnet;username=sa;password=sa";
             connexion = DriverManager.getConnection(url);
         } catch (SQLException ex) {
-            System.err.println("Oops:connexion:" + ex.getMessage());
+            System.out.println("Oops:connexion:" + ex.getMessage());
             return res;
         }
-      String query = "SELECT cliLogin FROM Client "
+        String query = "SELECT cliLogin FROM Client "
                 + " ORDER BY 1;";
         try {
-                    Statement stmt = connexion.createStatement();
-                    ResultSet rs = stmt.executeQuery(query);
+            Statement stmt = connexion.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
 
-                    while (rs.next()) {
-                        if(mesOutils.StringNull(cliLogin).equalsIgnoreCase(mesOutils.StringNull(rs.getString("cliLogin")))){
-                            JOptionPane.showMessageDialog(null, "le client Existe", " Erreur", JOptionPane.ERROR_MESSAGE);
-                            return 0;
-                   }
-                    }
+            while (rs.next()) {
+                if (mesOutils.StringNull(cliLogin).equalsIgnoreCase(mesOutils.StringNull(rs.getString("cliLogin")))) {
+                    JOptionPane.showMessageDialog(null, "le client Existe", " Erreur", JOptionPane.ERROR_MESSAGE);
+                    return 0;
+                }
+            }
 //            jTextFieldNumero.setText(null);
+            rs.close();
+            stmt.close();
+        } catch (SQLException ex) {
+            System.out.println("Oops:SQL:" + ex.getErrorCode() + "/" + ex.getMessage());
+            return res;
+        }
+        try {
+            System.out.println("Client close 322");
+            connexion.close();
+        } catch (SQLException ex) {
+            System.out.println("Oops:close:" + ex.getMessage());
+            return res;
+        }
+
+        System.out.println("Done!");
+        return res;
+
+    }
+
+    public int LoginValide(String login, String pwd, Connection conect) {
+        int res = -1;
+        Statement stmt = null;
+        ResultSet rs = null;
+
+        String query = "SELECT * FROM Client "
+                + " where cliLogin='" + login + "' and cliPwd='" + pwd + "'"
+                + " ORDER BY 1;";
+        try {
+            stmt = conect.createStatement();
+            rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+
+                if (login.equals(rs.getString("cliLogin")) && pwd.equals(rs.getString("cliPwd"))) {
+                    cliId = Integer.parseInt(rs.getString("cliId"));
+                    cliNom = rs.getString("cliNom");
+                    cliPrenom = rs.getString("cliPrenom");
+                    cliGenre = rs.getString("cliGenre");
+                    cliNaissance = rs.getDate("cliNaissance");
+                    cliMail = rs.getString("cliMail");
+                    cliLogin = rs.getString("cliLogin");
+                    cliPwd = rs.getString("cliPwd");
+                    cliObs = rs.getString("cliObs");
+                    return 0;
+                }
+
+            }
+
+        } catch (SQLException ex) {
+            ErreurFatal = "Problème de Base de Donnée";
+            System.out.println("Oops 0:SQL:" + ex.getErrorCode() + "/" + ex.getMessage());
+            return res;
+        } finally {
+            if (rs != null) {
+                try {
                     rs.close();
+                } catch (SQLException ex) {
+                    System.out.println("Oops 2 sql : " + ex.getMessage());
+                    ErreurFatal = "Problème de Base de Donnée";
+                    return res;
+                }
+            }
+            if (stmt != null) {
+                try {
                     stmt.close();
                 } catch (SQLException ex) {
-                    System.err.println("Oops:SQL:" + ex.getErrorCode() + "/" + ex.getMessage());
-                    return res;
-                }
-                try {
-                    connexion.close();
-                } catch (SQLException ex) {
-                    System.err.println("Oops:close:" + ex.getMessage());
-                    return res;
-                }
-              
-                System.out.println("Done!");
-                  return res;
-            
-    }
-    public int LoginValide(String login,String pwd,Connection conect){
-            int res = -1;
-            Statement stmt = null;
-            ResultSet rs = null;
-
-         
-           String query = "SELECT * FROM Client "
-                    + " where cliLogin='"+login+"' and cliPwd='"+pwd+"'"
-                + " ORDER BY 1;";
-        try {
-                    stmt = conect.createStatement();
-                    rs = stmt.executeQuery(query);
-                    
-                    while (rs.next()) {
-
-                    if(login.equals(rs.getString("cliLogin"))&& pwd.equals(rs.getString("cliPwd"))){
-                            cliId = Integer.parseInt(rs.getString("cliId"));
-                            cliNom = rs.getString("cliNom");
-                            cliPrenom = rs.getString("cliPrenom");
-                            cliGenre=rs.getString("cliPrenom");
-                            cliNaissance=rs.getDate("cliNaissance");
-                            cliMail=rs.getString("cliMail");
-                            cliLogin=rs.getString("cliLogin");
-                            cliPwd=rs.getString("cliPwd");
-                            cliObs=rs.getString("cliObs");        
-                            return 0;
-                   }
-                    else{
-                        Message = "Login / Mot de passe invalide.";
-                    }
-                    }
-                    
-                    
-
-                } catch (SQLException ex) {
-                    ErreurFatal = "Problème de Base de Donnée";
-                    System.err.println("Oops 0:SQL:" + ex.getErrorCode() + "/" + ex.getMessage());
-                    return res;
-                }finally{
-                if(rs != null){
                     try {
-                        rs.close();
-                    } catch (SQLException ex) {
-                        System.out.println("Oops 2 sql : "+ex.getMessage());
-                         ErreurFatal = "Problème de Base de Donnée";
-                        return res;
+                        System.out.println("Oops 3 sql : " + ex.getMessage() + "/" + conect.isClosed());
+                    } catch (SQLException ex1) {
+                        System.out.println(">>>>>>>>" + ex1.getMessage());
                     }
+                    ErreurFatal = "Problème de Base de Donnée";
+                    return res;
                 }
-                 if(stmt != null){
-                     try {
-                        stmt.close();
-                    } catch (SQLException ex) {
-                        System.out.println("Oops 3 sql : "+ex.getMessage());
-                         ErreurFatal = "Problème de Base de Donnée";
-                        return res;
-                    }
-                 }
+            }
 
         }
-                
-            return res;  
-            
-            
-            
+
+        return res;
+
     }
-    public void AjouterClient(Connection con){
+
+    public String getMessage() {
+        return Message;
+    }
+
+    public String getFatalErreur() {
+        return ErreurFatal;
+    }
+
+    public int LoginValide(String login, Connection conect) {
+        int res = -1;
+        Statement stmt = null;
+        ResultSet rs = null;
+
+        String query = "SELECT cliLogin FROM Client "
+                + " where cliLogin='" + login + "'";
         try {
-            String query= "insert into Client values (?,?,?,?,?,?,?,?);";
-            PreparedStatement pstmt= con.prepareStatement( query);
-            
-            pstmt.setString(1,cliNom);
-            pstmt.setString(2,cliPrenom);
-            pstmt.setString(3,cliGenre);
-            pstmt.setDate(4,cliNaissance);
-            pstmt.setString(5,cliMail);
-            pstmt.setString(6,cliLogin);
-            pstmt.setString(7,cliPwd);
-            pstmt.setString(8,cliObs);
-            
-            int result= pstmt.executeUpdate();
-            
-            System.out.println("Result:"+ result);
-            
+            System.out.println(">>>>>" + conect.isClosed());
+            stmt = conect.createStatement();
+            rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+
+                if (login.equals(rs.getString("cliLogin"))) {
+                    Message = "Login existe déjà.";
+                    return 0;
+                }
+
+            }
+
+        } catch (SQLException ex) {
+            ErreurFatal = "Problème de Base de Donnée";
+            System.out.println("Oops 3:SQL:" + ex.getErrorCode() + "/" + ex.getMessage());
+            ex.printStackTrace();
+            return res;
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    System.out.println("Oops 4 sql : " + ex.getMessage());
+                    ErreurFatal = "Problème de Base de Donnée";
+                    return res;
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    System.out.println("Oops 3 sql : " + ex.getMessage());
+                    ErreurFatal = "Problème de Base de Donnée";
+                    return res;
+                }
+            }
+
+        }
+
+        return res;
+
+    }
+
+    public void AjouterClient(Connection con) {
+        try {
+            String query = "insert into Client values (?,?,?,?,?,?,?,?);";
+            PreparedStatement pstmt = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+
+            pstmt.setString(1, cliNom);
+            pstmt.setString(2, cliPrenom);
+            pstmt.setString(3, cliGenre);
+            pstmt.setDate(4, cliNaissance);
+            pstmt.setString(5, cliMail);
+            pstmt.setString(6, cliLogin);
+            pstmt.setString(7, cliPwd);
+            pstmt.setString(8, "null");
+
+            int result = pstmt.executeUpdate();
+            ResultSet rs = pstmt.getGeneratedKeys();
+            while (rs.next()) {
+                setCliId(rs.getInt(1));
+//                System.out.println("key "+rs.getInt(1));
+            }
+
+            System.out.println("Result:" + result);
+
             pstmt.close();
         } catch (SQLException ex) {
-            System.err.println("Oops:SQL:"+ ex.getErrorCode()+"/"+ex.getMessage());
+            System.out.println("Oops:SQL:" + ex.getErrorCode() + "/" + ex.getMessage());
         }
-       
+
         System.out.println("Done!");
-        
+
+    }
+
+    public void miseAjourClient(Connection con) {
+        try {
+            String query = "update Client set cliNom = ? ,cliPrenom = ? ,cliGenre = ? ,cliNaissance = ?"
+                    + ", cliMail = ? , cliLogin = ? , cliPwd = ? , cliObs=? where cliId = ?";
+            PreparedStatement pstmt = con.prepareStatement(query);
+
+            pstmt.setString(1, cliNom);
+            pstmt.setString(2, cliPrenom);
+            pstmt.setString(3, cliGenre);
+            pstmt.setDate(4, cliNaissance);
+            pstmt.setString(5, cliMail);
+            pstmt.setString(6, cliLogin);
+            pstmt.setString(7, cliPwd);
+            pstmt.setString(8, cliObs);
+            pstmt.setInt(9, cliId);
+
+            int result = pstmt.executeUpdate();
+
+            System.out.println("Result:" + result);
+
+            pstmt.close();
+        } catch (SQLException ex) {
+            System.out.println("Oops:SQL:" + ex.getErrorCode() + "/" + ex.getMessage());
+            ErreurFatal = ex.getMessage();
+        }
+
+        System.out.println("Done!");
     }
 }
-
-   
-
-

@@ -1,7 +1,7 @@
 
-            .aa {
-                width: 300px;
-                height: 265px;
+.element {
+                width: 60%;
+                height: 562px;
                 background-color: rgba(0,0,0,0.5);
                 margin: 0 auto;
                 margin-top: 125px;
@@ -15,8 +15,8 @@
                 box-shadow: inset 4px 4px rgba(0,0,0,0.1);
                 
             }
-            .aa input[type="text"],
-            .aa input[type="password"]{
+            .element input[type="text"],
+            .element input[type="password"],.element input[type="email"]{
                 width: 200px;
                 height: 35px;
                 border: 0;
@@ -25,7 +25,7 @@
                 -moz-border-radius: 15px;
                 padding-left: 5px;
             }
-            .aa input[type="submit"]{
+            .element input[type="submit"]{
                 width: 100px;
                 height: 35px;
                 border: 0;
@@ -36,8 +36,41 @@
                 font-weight: bolder;
                cursor: pointer;
             }
-            .aa input[type="submit"]:hover{
+            .element input[type="submit"]:hover{
                 background: #a6af13;
             }
             
+h1{
+    margin: 10px;
+    padding: 10px;
+    text-align: right;
+    font-size: 15;
+    color: black;
+}
+#cont1 li .a{
+    color: black;
+}
+#cont1 ul{
+   list-style: none; 
+}
+#cont1 ul li{
+/* background-color: blue;*/
+ background-color: rgba(0,0,0,0);
+ width: 150px;
+ border: 0px solid white;
+ height: 30px;
+ line-height: 50px;
+ text-align: left;
+ color: fuchsia;
+ font-size: 25px;
+}
+/*#cont1 ul li:hover{
+    background-color: #388222;
+}*/
+#cont1 ul ul{
+    display: none;
+}
+#cont1 ul li:hover > ul{
+    display: block;
+}
 

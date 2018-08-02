@@ -6,12 +6,29 @@
     text-align: center;
     padding: 20px;
 }*/
+label{
+    color: black;
+}
+
 h2{
     text-align: center;
     padding: 20px;
+    color: blue;
+}
+.fin{
+    text-align: center;
+    color: red;
+    padding: 20px;
+    
+}
+h4{
+    text-align: center;
+    color: red;
 }
 .register{
+    
     background: #795548;
+    background-color: rgba(0,0,0,0.5);
     width: 500px;
     margin: 0px 0px 0px 410px;
     font-size: 18px;

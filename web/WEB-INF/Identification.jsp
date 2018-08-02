@@ -6,7 +6,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <style type="text/css">
-             body{
+             body{  
                 
                 background-image: url("pictures/lib.jpg");
                 background-size: cover;
@@ -23,10 +23,10 @@
                 <input type="submit" value="Sign In" name="doIt" /><br><br>
                 <%--<a href="#">Forget Password !</a>--%>
                 <font color='red'>${message}</font>
-                <span><a href="Controller?inscription">Inscription</a></span>
+                
                 
             </form>
-            
+            <span><a href="Controller?inscription">Inscription</a></span>
         </div>
        
     </body>
